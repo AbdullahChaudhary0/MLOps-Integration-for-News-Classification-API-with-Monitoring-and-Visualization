@@ -14,8 +14,9 @@ End-to-end MLOps pipeline for text classification creating pipelines through apa
 • Create sensors to monitor the completion of upstream tasks
 • Schedule periodic pipeline runs
 • Document all Airflow operators and data transformations
-Page 1
-MLOps Course NLP Pipeline Project
+
+
+
 4.2 NLP Model Development with MLflow
 • Experiment with at least 4 different approaches:
 – Traditional ML with TF-IDF features (e.g., Naive Bayes, SVM)
@@ -29,6 +30,9 @@ MLOps Course NLP Pipeline Project
 – Dataset version used
 • Register the best performing models to MLflow Model Registry
 • Create visualizations comparing model performance
+
+
+
 4.3 Model Serving API (FastAPI)
 • Develop a REST API that:
 – Loads the best model from MLflow
@@ -41,6 +45,8 @@ MLOps Course NLP Pipeline Project
 • Document API with Swagger/OpenAPI
 • Implement request logging and error handling
 • Create a simple web demo for testing the API
+
+
 4.4 Monitoring System
 • Instrument the API with Prometheus metrics:
 – Request count and latency
