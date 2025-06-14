@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Text Classification Demo</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 20px;
+      background: #f4f6f8;
+      color: #333;
+    }
+
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: auto;
+      background: #fff;
+      padding: 20px 30px;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    .section {
+      margin-bottom: 30px;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #3498db;
+      color: white;
+      font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #2980b9;
+    }
+
+    pre {
+      background: #ecf0f1;
+      padding: 10px;
+      border-radius: 6px;
+      font-size: 14px;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+  <h1>Text Classification API Demo</h1>
+  <div class="container">
+    
+    <div class="section">
+      <h2>🔹 Single Text Prediction</h2>
+      <input type="text" id="singleInput" placeholder="Enter a single sentence" />
+      <button onclick="predictSingle()">Predict</button>
+      <pre id="singleResult"></pre>
+    </div>
+
+    <div class="section">
+      <h2>🔸 Batch Prediction</h2>
+      <textarea id="batchInput" rows="4" placeholder="Enter texts separated by new lines"></textarea>
+      <button onclick="predictBatch()">Batch Predict</button>
+      <pre id="batchResult"></pre>
+    </div>
+
+    <div class="section">
+      <h2>ℹ️ Model Info</h2>
+      <button onclick="getModelInfo()">Get Model Info</button>
+      <pre id="modelInfoResult"></pre>
+    </div>
+
+    <div class="section">
+      <h2>📄 API Documentation</h2>
+      <p>Access full Swagger docs here: <a href="/docs" target="_blank">/docs</a></p>
+    </div>
+  </div>
+
+  <script>
+    async function predictSingle() {
+      const text = document.getElementById("singleInput").value;
+      const res = await fetch("/predict", {
+        method: "POST",
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text })
+      });
+      const data = await res.json();
+      document.getElementById("singleResult").innerText = JSON.stringify(data, null, 2);
+    }
+
+    async function predictBatch() {
+      const textArea = document.getElementById("batchInput").value;
+      const texts = textArea.split('\n').filter(Boolean);
+      const res = await fetch("/batch_predict", {
+        method: "POST",
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ texts })
+      });
+      const data = await res.json();
+      document.getElementById("batchResult").innerText = JSON.stringify(data, null, 2);
+    }
+
+    async function getModelInfo() {
+      const res = await fetch("/model_info");
+      const data = await res.json();
+      document.getElementById("modelInfoResult").innerText = JSON.stringify(data, null, 2);
+    }
+  </script>
+</body>
+</html>
